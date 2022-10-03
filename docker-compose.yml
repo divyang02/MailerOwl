@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=password
+    ports:
+      - "5672:5672"
+
+  db:
+    image: postgres:12.9
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    container_name: mail_sender_postgres
+
+  mail_sender:
+    build: .
+    volumes:
+      - .:/mail_sender
+    ports:
+      - 8000:8000
+    image: mail_sender:mail_sender
+    container_name: mail_sender_container
+    command: python manage.py runserver 0.0.0.0:8000
+#    command: sleep infinity
+    depends_on:
+      - db
+
+  mail_sender_migration:
+    build: .
+    volumes:
+      - .:/mail_sender
+    image: mail_sender:mail_sender
+    container_name: mail_sender_migration
+    command: bash -c "python manage.py makemigrations &&
+        python manage.py migrate"
+    depends_on:
+      - db
+
+  worker:
+    restart: always
+    build: .
+    volumes:
+      - .:/mail_sender
+    container_name: mail_sender_celery_worker
+    command: celery -A mail_sender worker -B -l INFO
+    depends_on:
+      - db
+      - rabbit
+      - mail_sender
