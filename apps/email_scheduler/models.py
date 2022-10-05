@@ -133,3 +133,27 @@ class EmailSchedulerLogs(models.Model):
         default=0, help_text="Number of times this email is being retried"
     )
     email_event_info = models.JSONField(null=True, blank=True)
+
+    @classmethod
+    def create_logs(cls, logs_to_be_created: list):
+        for log in logs_to_be_created:
+            cls(**log).save()
+
+    @classmethod
+    def get_logs_to_be_updated(cls):
+        return (
+            cls.objects.select_for_update()
+            .exclude(email_message_id__exact=None)
+            .filter(Q(email_send_status=None) | Q(email_send_status="sent"))
+        )
+
+    def update_fields(self, updated_fields: dict):
+        """
+        This method takes the dict of the updated keys in the model. It updates the
+        corresponding fields in the model instance and saves it in db.
+        """
+        update_fields = []
+        for key, value in updated_fields.items():
+            setattr(self, key, value)
+            update_fields.append(key)
+        self.save(update_fields=update_fields)
