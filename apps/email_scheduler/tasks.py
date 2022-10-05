@@ -9,6 +9,26 @@ from .services import EmailService
 from .constants import *
 from .exceptions import EmailSendingFailedWith429or500
 
+@app.task
+def periodic_email_sender():
+    from .models import EmailScheduler
+
+    queryset = EmailScheduler.pending_periodic_email_finder()
+    """
+    We are using atomic transaction here as the queryset returned has been fetched using select_for_update
+    which requires an atomic transaction in order to evaluate that queryset.
+    """
+    try:
+        with transaction.atomic():
+            for email_scheduler in queryset:
+                send_email(email_scheduler.pk)
+    except DatabaseError:
+        pass
+
+
+@app.task
+def periodic_email_log_updater():
+    EmailService.email_scheduler_log_updater()
 
 @app.task(bind=True, max_retries=3)
 def send_email(self, email_scheduler_obj_id, retry_count=0):
