@@ -13,6 +13,35 @@ class MailjetEmailWrapper(AbstractEmailSender):
     )
 
     @classmethod
+    def parse_response_for_email_scheduler_logs_creation_and_email_scheduler_updation(
+        cls, response: dict, retry_count: int, email_scheduler_object
+    ):
+        if response["Messages"][0]["Status"] == EMAIL_SEND_STATUS_SUCCESS:
+            logs_to_be_created = []
+
+            keys_to_extract = ["To", "Cc", "Bcc"]
+
+            response_messages = {
+                key: response["Messages"][0][key] for key in keys_to_extract
+            }
+
+            for email_recipient_type, emails in response_messages.items():
+                for email in emails:
+                    logs_to_be_created.append(
+                        {
+                            "email_scheduler": email_scheduler_object,
+                            "email_recipient_id": email["Email"],
+                            "retry_count": retry_count,
+                            "email_message_id": email["MessageID"],
+                            "email_recipient_type": email_recipient_type.lower(),
+                        }
+                    )
+
+            return EMAIL_SEND_STATUS_SUCCESS, logs_to_be_created
+        else:
+            return EMAIL_SEND_STATUS_ERROR, response["Messages"][0]["Errors"]
+
+    @classmethod
     def email_service_used(cls):
         return EMAIL_SERVICE_MAILJET
 
@@ -42,3 +71,11 @@ class MailjetEmailWrapper(AbstractEmailSender):
 
         result = cls.mailjet_send.send.create(data=data)
         return result.json()
+
+    @classmethod
+    def fetch_email_status_by_message_id(cls, message_id: str):
+        result = cls.mailjet_retrieve.messagehistory.get(id=message_id).json()
+        if len(result["Data"]) == 0:
+            return None
+        recent_event = result["Data"][-1]
+        return recent_event
