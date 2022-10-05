@@ -18,6 +18,15 @@ class EmailService:
                 return sender_class
 
     @classmethod
+    def _create_email_scheduler_logs(cls, parsed_response: list):
+        """This method is used to create email scheduler logs """
+        from .models import EmailSchedulerLogs
+
+        logs_to_be_created = parsed_response
+
+        EmailSchedulerLogs.create_logs(logs_to_be_created)
+
+    @classmethod
     def _update_email_scheduler(
         cls,
         email_scheduler_obj,
@@ -59,6 +68,31 @@ class EmailService:
                 updated_fields["task_status"] = TASK_STATUS_FAILED
                 email_scheduler_obj.update_fields(updated_fields)
 
+    @classmethod
+    def email_scheduler_log_updater(cls):
+        """This method is used to update the logs"""
+        from .models import EmailSchedulerLogs
+
+        queryset = EmailSchedulerLogs.get_logs_to_be_updated()
+
+        try:
+            with transaction.atomic():
+                for email_scheduler_logs in queryset:
+                    email_sender = cls._get_email_sender_class(
+                        email_scheduler_logs.email_scheduler.email_service
+                    )
+                    email_status = email_sender.fetch_email_status_by_message_id(
+                        message_id=email_scheduler_logs.email_message_id
+                    )
+                    if email_status is not None:
+                        email_scheduler_logs.update_fields(
+                            {
+                                "email_send_status": email_status["EventType"],
+                                "email_event_info": email_status,
+                            }
+                        )
+        except DatabaseError:
+            pass
 
     @classmethod
     def send_email(
