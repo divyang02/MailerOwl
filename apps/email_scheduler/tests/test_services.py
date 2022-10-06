@@ -148,3 +148,38 @@ class TestService(TestCase):
             )
         email_scheduler_err.refresh_from_db()
         self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_PENDING)
+
+    @patch(
+        "apps.email_scheduler.email_sender.MailjetEmailWrapper.fetch_email_status_by_message_id"
+    )
+    def test_periodic_email_log_updater(self, mock_fetch_email_status_by_message_id):
+        mock_fetch_email_status_by_message_id.return_value = {
+            "Comment": "550 5.1.1 The email account that you tried to reach does not exist. Please try 5.1.1 double-checking the recipient's email address for typos or 5.1.1 unnecessary spaces. Learn more at 5.1.1  https://support.google.com/mail/?p=NoSuchUser f3si13307730wmj.221 - gsmtp",
+            "EventAt": 1611561599,
+            "EventType": "hardbounced",
+            "State": "user unknown",
+            "Useragent": "",
+            "UseragentID": 0,
+        }
+        email_scheduler_for_log = EmailScheduler.objects.create(
+            email_to="abc@gmail.com",
+            email_subject="Test subject 2 ",
+            email_body="test",
+            email_last_sent_at=timezone.now(),
+        )
+        email_scheduler_log = EmailSchedulerLogs.objects.create(
+            email_scheduler=email_scheduler_for_log,
+            email_message_id="1",
+            email_recipient_type="To",
+        )
+
+        EmailService.email_scheduler_log_updater()
+        email_scheduler_log.refresh_from_db()
+        mock_fetch_email_status_by_message_id.assert_called_once_with(
+            message_id=email_scheduler_log.email_message_id
+        )
+        self.assertEqual(email_scheduler_log.email_send_status, "hardbounced")
+        self.assertEqual(
+            email_scheduler_log.email_event_info,
+            mock_fetch_email_status_by_message_id.return_value,
+        )
