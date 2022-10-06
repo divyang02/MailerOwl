@@ -32,3 +32,22 @@ class TestEmailSchedulerModel(TestCase):
                 kwargs={"email_scheduler_obj_id": email_scheduler_new.pk},
                 eta=email_scheduler_new.email_schedule,
             )
+
+class TestEmailSchedulerLogsModel(TestCase):
+    def test_create_logs(self):
+        email_scheduler = EmailScheduler.objects.create(
+            email_to="abc@gmail.com",
+            email_subject="Test subject 2 ",
+            email_body="Test email body 2",
+        )
+        log_list = [
+            {
+                "email_scheduler": email_scheduler,
+                "email_recipient_id": "abc@gmail.com",
+                "email_message_id": "1",
+                "email_recipient_type": EMAIL_RECIPIENT_TYPE_TO,
+            }
+        ]
+        EmailSchedulerLogs.create_logs(log_list)
+        self.assertEqual(len(EmailSchedulerLogs.objects.all()), 1)
+        self.assertEqual(EmailSchedulerLogs.objects.all()[0].email_message_id, "1")
