@@ -64,3 +64,53 @@ class TestService(TestCase):
             self.assertEqual(email_scheduler_log_created.email_message_id, "1")
             self.email_scheduler.refresh_from_db()
             self.assertEqual(self.email_scheduler.task_status, TASK_STATUS_COMPLETE)
+
+    def test_send_email_failed_without_retry(self):
+        with patch(
+            "apps.email_scheduler.email_sender.MailjetEmailWrapper.send_email_with_service"
+        ) as mock_mailjet_email_sender:
+            mock_mailjet_email_sender.return_value = {
+                "Messages": [
+                    {
+                        "Status": "error",
+                        "Errors": [
+                            {
+                                "ErrorIdentifier": "21e28b7d-cf57-4178-8481-d9589f84c6c3",
+                                "ErrorCode": "send-0003",
+                                "StatusCode": 400,
+                                "ErrorMessage": 'At least "HTMLPart", "TextPart" or "TemplateID" must be provided.',
+                                "ErrorRelatedTo": [
+                                    "TextPart",
+                                    "HTMLPart",
+                                    "TemplateID",
+                                ],
+                            }
+                        ],
+                    }
+                ]
+            }
+
+            email_scheduler_err = EmailScheduler.objects.create(
+                email_to="abc@gmail.com",
+                email_subject="Test subject 2 ",
+                email_body="body",
+            )
+
+            EmailService.send_email(
+                email_scheduler_obj_id=email_scheduler_err.pk,
+                max_retries=3,
+                retry_count=0,
+            )
+
+            no_email_log = EmailSchedulerLogs.objects.filter(
+                email_scheduler=email_scheduler_err
+            )
+            self.assertFalse(no_email_log.exists())
+
+            email_scheduler_err.refresh_from_db()
+            self.assertEqual(email_scheduler_err.task_failed_count, 1)
+            self.assertEqual(
+                email_scheduler_err.task_failure_info,
+                mock_mailjet_email_sender.return_value["Messages"][0]["Errors"],
+            )
+            self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_FAILED)
