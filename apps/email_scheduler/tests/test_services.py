@@ -114,3 +114,37 @@ class TestService(TestCase):
                 mock_mailjet_email_sender.return_value["Messages"][0]["Errors"],
             )
             self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_FAILED)
+
+
+    @patch(
+        "apps.email_scheduler.email_sender.MailjetEmailWrapper.send_email_with_service"
+    )
+    def test_send_email_failed_with_retry(self, mock_mailjet_email_sender):
+        mock_mailjet_email_sender.return_value = {
+            "Messages": [
+                {
+                    "Status": "error",
+                    "Errors": [
+                        {
+                            "ErrorIdentifier": "1",
+                            "ErrorCode": "code-01",
+                            "StatusCode": 429,
+                            "ErrorMessage": "Error 429 occ",
+                            "ErrorRelatedTo": ["TextPart", "HTMLPart", "TemplateID"],
+                        }
+                    ],
+                }
+            ]
+        }
+
+        email_scheduler_err = EmailScheduler.objects.create(
+            email_to="abc@gmail.com", email_subject="Test subject 2 ", email_body="test"
+        )
+        with self.assertRaises(EmailSendingFailedWith429or500):
+            EmailService.send_email(
+                email_scheduler_obj_id=email_scheduler_err.pk,
+                max_retries=3,
+                retry_count=0,
+            )
+        email_scheduler_err.refresh_from_db()
+        self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_PENDING)
