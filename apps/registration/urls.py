@@ -1,5 +1,9 @@
 from django.urls import path
 
+"""
+This module will define urls for Registration app
+"""
+
 from .views import (
     UserRegistrationView,
     HomeView,
