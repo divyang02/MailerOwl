@@ -8,10 +8,17 @@ from http import HTTPStatus
 
 
 class EmailService:
+    """
+    This class will define the EmailService
+    """
     @classmethod
     def _get_email_sender_class(cls, sender_name: str):
         """
         This method is used to get the correct class depending on the given name for the service
+        Arguments:
+            sender_name {str} -- Name of the sender
+        Returns:
+            class -- Class of the sender
         """
         for sender_class in AbstractEmailSender.__subclasses__():
             if sender_class.email_service_used() == sender_name:
@@ -19,7 +26,13 @@ class EmailService:
 
     @classmethod
     def _create_email_scheduler_logs(cls, parsed_response: list):
-        """This method is used to create email scheduler logs """
+        """
+        This method is used to create email scheduler logs 
+        Arguments:
+            parsed_response {list} -- List of parsed response
+        Returns:
+            None
+        """
         from .models import EmailSchedulerLogs
 
         logs_to_be_created = parsed_response
@@ -35,7 +48,17 @@ class EmailService:
         retry_count: int,
         success: bool,
     ):
-        """This method is used to update email scheduler object after we send email"""
+        """
+        This method is used to update email scheduler object after we send email
+        Arguments:
+            email_scheduler_obj {object} -- Email scheduler object
+            parsed_response {list} -- List of parsed response
+            max_retries {int} -- Max retries
+            retry_count {int} -- Retry count
+            success {bool} -- Success or not
+        Returns:
+            None
+        """
         if success:
             updated_fields = {
                 "email_last_sent_at": timezone.now(),
@@ -70,7 +93,13 @@ class EmailService:
 
     @classmethod
     def email_scheduler_log_updater(cls):
-        """This method is used to update the logs"""
+        """
+        This method is used to update the logs
+        Arguments:
+            None
+        Returns:
+            None
+        """
         from .models import EmailSchedulerLogs
 
         queryset = EmailSchedulerLogs.get_logs_to_be_updated()
@@ -98,6 +127,14 @@ class EmailService:
     def send_email(
         cls, email_scheduler_obj_id: int, max_retries: int, retry_count: int
     ):
+        """
+        This method is used to send email
+        Arguments:
+                email_scheduler_obj_id {int} -- Email scheduler object id
+                max_retries {int} -- Max retries
+                retry_count {int} -- Retry count
+                Returns:
+        """
         from .models import EmailScheduler, EmailSchedulerLogs
 
         email_scheduler_obj = EmailScheduler.objects.get(pk=email_scheduler_obj_id)
