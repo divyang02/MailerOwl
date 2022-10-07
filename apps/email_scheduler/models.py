@@ -9,6 +9,9 @@ from django.db.models import F, Q
 
 
 class EmailScheduler(models.Model):
+    """
+    This class will define the EmailScheduler model
+    """
     email_to = models.EmailField()
     email_cc = ArrayField(
         models.EmailField(),
@@ -61,7 +64,9 @@ class EmailScheduler(models.Model):
 
     @classmethod
     def pending_periodic_email_finder(cls):
-        """This method finds all the EmailScheduler objects which need to be sent in case of periodic task"""
+        """
+        This method finds all the EmailScheduler objects which need to be sent in case of periodic task
+        """
 
         pending_emails = (
             cls.objects.select_for_update()
@@ -94,6 +99,9 @@ class EmailScheduler(models.Model):
         We have overrided the save method to call respective send email method i.e send immidiately or
         after specified duration. We also call pre_update_processing to update the obejct properly in case of
         update.
+        Arguments:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
         """
         is_adding_new = self._state.adding
         if not is_adding_new:
@@ -112,6 +120,8 @@ class EmailScheduler(models.Model):
         """
         This method takes the dict of the updated keys in the model. It updates the
         corresponding fields in the model instance and saves it in db.
+        Arguments:
+            updated_fields: dict of updated fields in the model
         """
         update_fields = []
         for key, value in updated_fields.items():
@@ -122,6 +132,9 @@ class EmailScheduler(models.Model):
 
 
 class EmailSchedulerLogs(models.Model):
+    """
+    This class will define the EmailSchedulerLogs model
+    """
     email_scheduler = models.ForeignKey(EmailScheduler, on_delete=models.CASCADE)
     email_recipient_id = models.EmailField()
     email_message_id = models.TextField(null=True, blank=True)
@@ -136,11 +149,19 @@ class EmailSchedulerLogs(models.Model):
 
     @classmethod
     def create_logs(cls, logs_to_be_created: list):
+        """
+        This method takes the list of logs to be created and creates them in bulk.
+        Arguments:
+            logs_to_be_created: list of logs to be created
+        """
         for log in logs_to_be_created:
             cls(**log).save()
 
     @classmethod
     def get_logs_to_be_updated(cls):
+        """
+        This method returns the list of logs which are in pending state and are to be updated
+        """
         return (
             cls.objects.select_for_update()
             .exclude(email_message_id__exact=None)
@@ -151,6 +172,8 @@ class EmailSchedulerLogs(models.Model):
         """
         This method takes the dict of the updated keys in the model. It updates the
         corresponding fields in the model instance and saves it in db.
+        Arguments:
+            updated_fields: dict of updated fields in the model
         """
         update_fields = []
         for key, value in updated_fields.items():
