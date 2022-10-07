@@ -1,3 +1,7 @@
+"""
+FIle contains constants for email_scheduler app
+"""
+
 EMAIL_SERVICE_MAILJET = "mailjet"
 EMAIL_SERVICE_CHOICES = ((EMAIL_SERVICE_MAILJET, "Mailjet"),)
 
