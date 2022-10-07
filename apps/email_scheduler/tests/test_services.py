@@ -108,7 +108,7 @@ class TestService(TestCase):
             self.assertFalse(no_email_log.exists())
 
             email_scheduler_err.refresh_from_db()
-            self.assertEqual(email_scheduler_err.task_failed_count, 1)
+            self.assertEqual(email_scheduler_err.task_failed_count, 2)
             self.assertEqual(
                 email_scheduler_err.task_failure_info,
                 mock_mailjet_email_sender.return_value["Messages"][0]["Errors"],
@@ -147,7 +147,7 @@ class TestService(TestCase):
                 retry_count=0,
             )
         email_scheduler_err.refresh_from_db()
-        self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_PENDING)
+        self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_FAILED)
 
     @patch(
         "apps.email_scheduler.email_sender.MailjetEmailWrapper.fetch_email_status_by_message_id"

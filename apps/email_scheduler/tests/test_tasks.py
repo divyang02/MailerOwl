@@ -19,7 +19,7 @@ class TestTasks(TestCase):
         )
 
         send_email(email_scheduler_err.pk)
-        mock_retry.assert_called_once_with(kwargs={"retry_count": 1}, countdown=30)
+        mock_retry.assert_called_with(kwargs={"retry_count": 1}, countdown=30)
         email_scheduler_err.refresh_from_db()
         self.assertEqual(email_scheduler_err.task_status, TASK_STATUS_PENDING)
 
