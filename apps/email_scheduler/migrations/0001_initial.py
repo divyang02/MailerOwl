@@ -6,11 +6,18 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
+    """
+    This migration will create the EmailScheduler model
+    """
 
     initial = True
 
     dependencies = [
     ]
+
+    """
+        operations list containing different Migration Model 
+    """
 
     operations = [
         migrations.CreateModel(
