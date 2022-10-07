@@ -6,9 +6,15 @@ from django.apps import apps
 
 
 class RegistrationForm(UserCreationForm):
+    """
+    This class will create a form for registration
+    """
     email = forms.EmailField()
 
     class Meta:
+        """
+        This class will define the meta data for RegistrationForm
+        """
         model = User
         fields = ["username", "email", "password1", "password2"]
 
@@ -16,6 +22,10 @@ class RegistrationForm(UserCreationForm):
         """
         While saving the user we need to make sure that the registered user should have viewing access
         of our models and it should be a staff user so that it can access admin page.
+        Arguments:
+            commit {bool} -- True
+        Returns:
+            object -- User object
         """
         user = super(RegistrationForm, self).save(commit=False)
         user.is_staff = True
