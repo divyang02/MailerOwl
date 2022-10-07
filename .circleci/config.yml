@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.8.1
+        environment:
+          - DATABASE_URL: postgresql://postgresql@localhost/mail_sender
+
+      - image: circleci/postgres:12.9
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: mail_sender
+          POSTGRES_PASSWORD: postgres
+
+    working_directory: ~/MailerOwl
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: Running tests
+          command: |
+            . venv/bin/activate
+            pwd
+            ls mail_sender/
+            python manage.py test
+      - store_artifacts:
+          path: test-reports/
+          destination: python_app
