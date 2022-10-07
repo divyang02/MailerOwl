@@ -5,6 +5,9 @@ from ..constants import *
 
 
 class MailjetEmailWrapper(AbstractEmailSender):
+    """
+    This class is a wrapper for Mailjet API. It will be used to send emails using Mailjet API
+    """
     mailjet_send = Client(
         auth=(settings.MAILJET_API_KEY, settings.MAILJET_API_SECRET), version="v3.1"
     )
@@ -16,6 +19,18 @@ class MailjetEmailWrapper(AbstractEmailSender):
     def parse_response_for_email_scheduler_logs_creation_and_email_scheduler_updation(
         cls, response: dict, retry_count: int, email_scheduler_object
     ):
+        """
+        This method will parse the response and return a tuple, with first element as "Success"/"Error"
+        and second element will be a list of dict. In case of success, second element will contain list of
+        dict for creating logs and in case of error the second element will contain list of dict of errors with
+        each dict containing a key "StatusCode"
+        Arguments:
+            response {dict} -- Response from the email service
+            retry_count {int} -- Retry count of the email scheduler
+            email_scheduler_object {object} -- Email scheduler object
+        Returns:
+            tuple -- Tuple containing first element as "Success"/"Error" and second element will be a list of dict
+        """
         if response["Messages"][0]["Status"] == EMAIL_SEND_STATUS_SUCCESS:
             logs_to_be_created = []
 
@@ -43,10 +58,25 @@ class MailjetEmailWrapper(AbstractEmailSender):
 
     @classmethod
     def email_service_used(cls):
+        """
+        This method should be overrided to return a string of which email sending service is being used
+        Arguments:
+            None
+        Returns:
+            str -- Email service used
+        """
         return EMAIL_SERVICE_MAILJET
 
     @classmethod
     def send_email_with_service(cls, email_scheduler_object):
+        """
+        This method is overrided to send an email using the specific service. It takes object of
+        EmailScheduler as an argument. It should return JSON containing response given by service
+        Arguments:
+            email_scheduler_object {object} -- Email scheduler object
+        Returns:
+            dict -- Response from the email service
+        """
         email_cc = [{"Email": cc} for cc in email_scheduler_object.email_cc]
         email_bcc = [{"Email": bcc} for bcc in email_scheduler_object.email_bcc]
 
@@ -74,6 +104,14 @@ class MailjetEmailWrapper(AbstractEmailSender):
 
     @classmethod
     def fetch_email_status_by_message_id(cls, message_id: str):
+        """
+        This method is overrided to fetch the status of an email using the specific service. It takes message_id
+        as an argument. It should return JSON containing response given by service
+        Arguments:
+            message_id {str} -- Message ID of the email
+        Returns:
+            dict -- Response from the email service
+        """
         result = cls.mailjet_retrieve.messagehistory.get(id=message_id).json()
         if len(result["Data"]) == 0:
             return None
