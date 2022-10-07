@@ -32,7 +32,6 @@ services:
     image: mail_sender:mail_sender
     container_name: mail_sender_container
     command: python manage.py runserver 0.0.0.0:8000
-#    command: sleep infinity
     depends_on:
       - db
 
