@@ -11,6 +11,9 @@ from .exceptions import EmailSendingFailedWith429or500
 
 @app.task
 def periodic_email_sender():
+    """
+    This method is used to send emails periodically
+    """
     from .models import EmailScheduler
 
     queryset = EmailScheduler.pending_periodic_email_finder()
@@ -28,10 +31,19 @@ def periodic_email_sender():
 
 @app.task
 def periodic_email_log_updater():
+    """
+    This method is used to update the logs of periodic emails
+    """
     EmailService.email_scheduler_log_updater()
 
 @app.task(bind=True, max_retries=3)
 def send_email(self, email_scheduler_obj_id, retry_count=0):
+    """
+    This method is used to send email
+    Arguments:
+        email_scheduler_obj_id {int} -- Email scheduler object id
+        retry_count {int} -- Retry count
+    """
 
     try:
         EmailService.send_email(
