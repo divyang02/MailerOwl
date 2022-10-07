@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.5
 jobs:
   build:
     docker:
@@ -23,6 +25,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
+            pip install coverage
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
@@ -33,7 +36,14 @@ jobs:
             . venv/bin/activate
             pwd
             ls mail_sender/
-            python manage.py test --settings=mail_sender.test_settings
+            coverage run --source=apps manage.py test --settings=mail_sender.test_settings
+      - run:
+          name: Create Coverage XML
+          command: |
+            . venv/bin/activate
+            coverage xml
       - store_artifacts:
           path: test-reports/
           destination: python_app
+      - codecov/upload:
+          file: coverage.xml
