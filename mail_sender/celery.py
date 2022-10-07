@@ -33,4 +33,9 @@ app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
+    """
+    This method is used to debug the task
+    Arguments:
+        self {object} -- self
+    """
     print(f"Request: {self.request!r}")
