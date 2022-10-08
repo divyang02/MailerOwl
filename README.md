@@ -1,5 +1,7 @@
 <h1 align="center">
-  MailerOwl - All in one Email Marketing Solution
+  MailerOwl - All in one Email Marketing Solution 
+  
+  [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
 </h1>
 
 <!--Badges-->
@@ -7,6 +9,7 @@
 
 [![CircleCI](https://circleci.com/gh/divyang02/MailerOwl.svg?style=svg)](https://circleci.com/gh/divyang02/MailerOwl)
 [![codecov](https://codecov.io/gh/divyang02/MailerOwl/branch/main/graph/badge.svg?token=O8AVQ0MZLR)](https://codecov.io/gh/divyang02/MailerOwl)
+[![Python Style Checker](https://github.com/divyang02/MailerOwl/actions/workflows/style_checker.yml/badge.svg)](https://github.com/divyang02/MailerOwl/actions/workflows/style_checker.yml)
 
 </div>
 
@@ -48,3 +51,17 @@
     ·
     <a href="https://github.com/divyang02/MailerOwl/issues/new/choose">Request Feature</a>
 </p>
+
+## 👥 Contributors <a name="Contributors"></a>
+
+### Group 46
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/divyang02"><img src="https://avatars.githubusercontent.com/u/23277855?v=4" width="75px;" alt=""/><br /><sub><b>Divyang Doshi</b></sub></a></td>
+    <td align="center"><a href="https://github.com/gargpriyam21"><img src="https://avatars.githubusercontent.com/u/32238511?v=4" width="75px;" alt=""/><br /><sub><b>Priyam Garg</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/bhansaliyash"><img src="https://avatars.githubusercontent.com/u/21220880?v=4" width="75px;" alt=""/><br /><sub><b>Yash Bhansali</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/devmehta1999"><img src="https://avatars.githubusercontent.com/u/48157574?v=4" width="75px;" alt=""/><br /><sub><b>Dev Mehta</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/manognapc"><img src="https://avatars.githubusercontent.com/u/112452957?v=4" width="75px;" alt=""/><br /><sub><b>Manogna Choudary Potluri</b></sub></a><br /></td>
+  </tr>
+</table>
