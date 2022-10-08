@@ -3,7 +3,7 @@ FIle contains constants for email_scheduler app
 """
 
 EMAIL_SERVICE_MAILJET = "mailjet"
-EMAIL_SERVICE_CHOICES = ((EMAIL_SERVICE_MAILJET, "Mailjet"),)
+EMAIL_SERVICE_CHOICES = ((EMAIL_SERVICE_MAILJET, "Mailjet"), )
 
 DEFAULT_EMAIL_SERVICE = EMAIL_SERVICE_MAILJET
 

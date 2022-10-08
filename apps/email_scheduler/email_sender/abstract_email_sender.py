@@ -1,8 +1,8 @@
 class AbstractEmailSender(object):
+
     @classmethod
     def parse_response_for_email_scheduler_logs_creation_and_email_scheduler_updation(
-        cls, response: dict, retry_count: int, email_scheduler_object
-    ):
+            cls, response: dict, retry_count: int, email_scheduler_object):
         """
         This method will parse the response and return a tuple, with first element as "Success"/"Error"
         and second element will be a list of dict. In case of success, second element will contain list of

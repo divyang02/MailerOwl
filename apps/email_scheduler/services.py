@@ -11,6 +11,7 @@ class EmailService:
     """
     This class will define the EmailService
     """
+
     @classmethod
     def _get_email_sender_class(cls, sender_name: str):
         """
@@ -76,10 +77,8 @@ class EmailService:
 
             error_429_or_500 = False
             for err in errors:
-                if (
-                    err["StatusCode"] == HTTPStatus.TOO_MANY_REQUESTS
-                    or err["StatusCode"] == HTTPStatus.INTERNAL_SERVER_ERROR
-                ):
+                if (err["StatusCode"] == HTTPStatus.TOO_MANY_REQUESTS or
+                        err["StatusCode"] == HTTPStatus.INTERNAL_SERVER_ERROR):
                     error_429_or_500 = True
                     break
             updated_fields["task_failure_info"] = errors
@@ -108,25 +107,22 @@ class EmailService:
             with transaction.atomic():
                 for email_scheduler_logs in queryset:
                     email_sender = cls._get_email_sender_class(
-                        email_scheduler_logs.email_scheduler.email_service
-                    )
+                        email_scheduler_logs.email_scheduler.email_service)
                     email_status = email_sender.fetch_email_status_by_message_id(
-                        message_id=email_scheduler_logs.email_message_id
-                    )
+                        message_id=email_scheduler_logs.email_message_id)
                     if email_status is not None:
-                        email_scheduler_logs.update_fields(
-                            {
-                                "email_send_status": email_status["EventType"],
-                                "email_event_info": email_status,
-                            }
-                        )
+                        email_scheduler_logs.update_fields({
+                            "email_send_status":
+                            email_status["EventType"],
+                            "email_event_info":
+                            email_status,
+                        })
         except DatabaseError:
             pass
 
     @classmethod
-    def send_email(
-        cls, email_scheduler_obj_id: int, max_retries: int, retry_count: int
-    ):
+    def send_email(cls, email_scheduler_obj_id: int, max_retries: int,
+                   retry_count: int):
         """
         This method is used to send email
         Arguments:
@@ -137,16 +133,17 @@ class EmailService:
         """
         from .models import EmailScheduler, EmailSchedulerLogs
 
-        email_scheduler_obj = EmailScheduler.objects.get(pk=email_scheduler_obj_id)
+        email_scheduler_obj = EmailScheduler.objects.get(
+            pk=email_scheduler_obj_id)
 
-        email_sender = cls._get_email_sender_class(email_scheduler_obj.email_service)
+        email_sender = cls._get_email_sender_class(
+            email_scheduler_obj.email_service)
         response = email_sender.send_email_with_service(email_scheduler_obj)
         (
             status,
             parsed_response,
         ) = email_sender.parse_response_for_email_scheduler_logs_creation_and_email_scheduler_updation(
-            response, retry_count, email_scheduler_obj
-        )
+            response, retry_count, email_scheduler_obj)
 
         is_email_send_successfully = status == EMAIL_SEND_STATUS_SUCCESS
 

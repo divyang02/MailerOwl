@@ -9,6 +9,7 @@ from .services import EmailService
 from .constants import *
 from .exceptions import EmailSendingFailedWith429or500
 
+
 @app.task
 def periodic_email_sender():
     """
@@ -35,6 +36,7 @@ def periodic_email_log_updater():
     This method is used to update the logs of periodic emails
     """
     EmailService.email_scheduler_log_updater()
+
 
 @app.task(bind=True, max_retries=3)
 def send_email(self, email_scheduler_obj_id, retry_count=0):

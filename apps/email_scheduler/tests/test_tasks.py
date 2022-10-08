@@ -9,14 +9,17 @@ from ..exceptions import EmailSendingFailedWith429or500
 
 
 class TestTasks(TestCase):
+
     @patch("apps.email_scheduler.services.EmailService.send_email")
     @patch("apps.email_scheduler.tasks.send_email.retry")
-    def test_send_email_failed_with_retry(self, mock_retry, mock_email_send_service):
+    def test_send_email_failed_with_retry(self, mock_retry,
+                                          mock_email_send_service):
         mock_email_send_service.side_effect = EmailSendingFailedWith429or500()
 
         email_scheduler_err = EmailScheduler.objects.create(
-            email_to="abc@gmail.com", email_subject="Test subject 2 ", email_body="test"
-        )
+            email_to="abc@gmail.com",
+            email_subject="Test subject 2 ",
+            email_body="test")
 
         send_email(email_scheduler_err.pk)
         mock_retry.assert_called_with(kwargs={"retry_count": 1}, countdown=30)
@@ -36,7 +39,10 @@ class TestTasks(TestCase):
         periodic_email_sender()
         mock_send_email.assert_called_once_with(periodic_email_scheduler.pk)
 
-    @patch("apps.email_scheduler.services.EmailService.email_scheduler_log_updater")
-    def test_periodic_email_log_updater(self, mock_email_scheduler_log_updater):
+    @patch(
+        "apps.email_scheduler.services.EmailService.email_scheduler_log_updater"
+    )
+    def test_periodic_email_log_updater(self,
+                                        mock_email_scheduler_log_updater):
         periodic_email_log_updater()
         mock_email_scheduler_log_updater.assert_called_once()

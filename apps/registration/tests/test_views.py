@@ -4,6 +4,7 @@ from ..forms import RegistrationForm
 
 
 class TestViews(TestCase):
+
     def test_user_registration_view_get(self):
         response = self.client.get("/register/")
         self.assertEqual(response.status_code, HTTPStatus.OK)

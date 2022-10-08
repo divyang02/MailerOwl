@@ -5,10 +5,10 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 
 # Create your views here.
-
 """
 This module will define views for Registration app
 """
+
 
 class HomeView(View):
     """
@@ -26,6 +26,7 @@ class HomeView(View):
         """
         context = {}
         return render(request, self.template_name, context)
+
 
 class UserRegistrationView(FormView):
     """

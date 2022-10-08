@@ -5,7 +5,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.forms import Textarea
 
-
 # Register your models here.
 
 
@@ -15,8 +14,18 @@ class EmailSchedulerAdmin(admin.ModelAdmin):
     This class will register EmailScheduler model in admin
     """
     formfield_overrides = {
-        ArrayField: {"widget": Textarea(attrs={"rows": 2, "cols": 60})},
-        models.CharField: {"widget": Textarea(attrs={"rows": 2, "cols": 80})},
+        ArrayField: {
+            "widget": Textarea(attrs={
+                "rows": 2,
+                "cols": 60
+            })
+        },
+        models.CharField: {
+            "widget": Textarea(attrs={
+                "rows": 2,
+                "cols": 80
+            })
+        },
     }
     readonly_fields = [
         "email_last_sent_at",
@@ -32,6 +41,7 @@ class EmailSchedulerLogsAdmin(admin.ModelAdmin):
     """
     This class will register EmailSchedulerLogs model in admin
     """
+
     def has_add_permission(self, request, obj=None):
         """
         This method will return False to disable add permission

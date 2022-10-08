@@ -29,18 +29,18 @@ class EmailScheduler(models.Model):
     email_body = models.TextField()
 
     email_schedule = models.DateTimeField(
-        blank=True, null=True, help_text="Schedule time to send email"
-    )
+        blank=True, null=True, help_text="Schedule time to send email")
     email_repeat_after = models.DurationField(
         blank=True,
         null=True,
-        help_text="Duration after which to resend email, You can remove it in future to stop the campaign and mark "
+        help_text=
+        "Duration after which to resend email, You can remove it in future to stop the campaign and mark "
         "the task COMPLETE",
     )
 
-    email_service = models.CharField(
-        max_length=32, default=DEFAULT_EMAIL_SERVICE, choices=EMAIL_SERVICE_CHOICES
-    )
+    email_service = models.CharField(max_length=32,
+                                     default=DEFAULT_EMAIL_SERVICE,
+                                     choices=EMAIL_SERVICE_CHOICES)
 
     email_last_sent_at = models.DateTimeField(blank=True, null=True)
     task_status = models.CharField(
@@ -50,11 +50,9 @@ class EmailScheduler(models.Model):
         help_text="Status of this email sending task",
     )
     email_send_count = models.IntegerField(
-        default=0, help_text="Count of emails sent successfully"
-    )
+        default=0, help_text="Count of emails sent successfully")
     task_failed_count = models.IntegerField(
-        default=0, help_text="Count of number of times this task failed"
-    )
+        default=0, help_text="Count of number of times this task failed")
     task_failure_info = ArrayField(
         models.JSONField(),
         null=True,
@@ -68,14 +66,13 @@ class EmailScheduler(models.Model):
         This method finds all the EmailScheduler objects which need to be sent in case of periodic task
         """
 
-        pending_emails = (
-            cls.objects.select_for_update()
-            .exclude(email_repeat_after__exact=None, email_last_sent_at__exact=None)
-            .filter(
+        pending_emails = (cls.objects.select_for_update().exclude(
+            email_repeat_after__exact=None,
+            email_last_sent_at__exact=None).filter(
                 task_status__exact=TASK_STATUS_PENDING,
-                email_last_sent_at__lte=timezone.now() - F("email_repeat_after"),
-            )
-        )
+                email_last_sent_at__lte=timezone.now() -
+                F("email_repeat_after"),
+            ))
         return pending_emails
 
     def pre_update_processing(self):
@@ -87,11 +84,9 @@ class EmailScheduler(models.Model):
         before updating and self contains the state after updating, hence db call is necessary.
         """
         old_obj = EmailScheduler.objects.get(pk=self.pk)
-        if (
-            old_obj.email_repeat_after is not None
-            and self.email_repeat_after is None
-            and old_obj.task_status != TASK_STATUS_FAILED
-        ):
+        if (old_obj.email_repeat_after is not None
+                and self.email_repeat_after is None
+                and old_obj.task_status != TASK_STATUS_FAILED):
             self.task_status = TASK_STATUS_COMPLETE
 
     def save(self, *args, **kwargs):
@@ -113,8 +108,7 @@ class EmailScheduler(models.Model):
             elif self.email_schedule is not None:
                 td = self.email_schedule
                 send_email.apply_async(
-                    kwargs={"email_scheduler_obj_id": self.pk}, eta=td
-                )
+                    kwargs={"email_scheduler_obj_id": self.pk}, eta=td)
 
     def update_fields(self, updated_fields: dict):
         """
@@ -130,21 +124,19 @@ class EmailScheduler(models.Model):
         self.save(update_fields=update_fields)
 
 
-
 class EmailSchedulerLogs(models.Model):
     """
     This class will define the EmailSchedulerLogs model
     """
-    email_scheduler = models.ForeignKey(EmailScheduler, on_delete=models.CASCADE)
+    email_scheduler = models.ForeignKey(EmailScheduler,
+                                        on_delete=models.CASCADE)
     email_recipient_id = models.EmailField()
     email_message_id = models.TextField(null=True, blank=True)
     email_send_status = models.CharField(max_length=128, blank=True, null=True)
     email_recipient_type = models.CharField(
-        max_length=8, choices=EMAIL_RECIPIENT_TYPE_CHOICES
-    )
+        max_length=8, choices=EMAIL_RECIPIENT_TYPE_CHOICES)
     retry_count = models.IntegerField(
-        default=0, help_text="Number of times this email is being retried"
-    )
+        default=0, help_text="Number of times this email is being retried")
     email_event_info = models.JSONField(null=True, blank=True)
 
     @classmethod
@@ -162,11 +154,9 @@ class EmailSchedulerLogs(models.Model):
         """
         This method returns the list of logs which are in pending state and are to be updated
         """
-        return (
-            cls.objects.select_for_update()
-            .exclude(email_message_id__exact=None)
-            .filter(Q(email_send_status=None) | Q(email_send_status="sent"))
-        )
+        return (cls.objects.select_for_update().exclude(
+            email_message_id__exact=None).filter(
+                Q(email_send_status=None) | Q(email_send_status="sent")))
 
     def update_fields(self, updated_fields: dict):
         """

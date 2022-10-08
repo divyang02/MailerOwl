@@ -36,7 +36,6 @@ class RegistrationForm(UserCreationForm):
                 permission_codename = "view_" + model._meta.model_name
                 content_type = ContentType.objects.get_for_model(model)
                 permission = Permission.objects.get(
-                    codename=permission_codename, content_type=content_type
-                )
+                    codename=permission_codename, content_type=content_type)
                 user.user_permissions.add(permission)
         return user
