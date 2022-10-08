@@ -30,4 +30,4 @@ EMAIL_RECIPIENT_TYPE_CHOICES = (
 EMAIL_SEND_STATUS_SUCCESS = "success"
 EMAIL_SEND_STATUS_ERROR = "error"
 
-DEFAULT_FROM_EMAIL = "test@gmail.com"
+DEFAULT_FROM_EMAIL = "mailerowl@proton.me"
