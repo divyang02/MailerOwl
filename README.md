@@ -64,6 +64,25 @@
   <li>Send Recurring Email</li>
 </ul>
 
+<h1>Installation Guide</h1>
+
+  1. Install <a href="https://www.docker.com/">Docker</a> on your operating system.
+  2. Clone the github repository at a preferable location in your system.
+  ```
+  git clone https://github.com/divyang02/MailerOwl.git
+  cd MailerOwl
+  ```
+  3. Create your account on <a href="https://www.mailjet.com/">MailJet</a> and generate an API Key and API Secret Token.
+  4. Copy the content of mail_sender.settings.py and make a new file local_settings.py in the same folder.
+  5. Update MAILJET_API_KEY and MAILJET_API_SECRET fields in the local_settings.py.
+  6. Update 
+  7. Go to apps/email_scheduler/constants.py and update DEFAULT_FROM_EMAIL.
+  8. Run ```docker compose up``` in a new terminal.
+  9. Open another terminal and run the command ```docker exec -it mail_sender sh ```.
+  10. In this terminal run the command ``` python manage.py createsuperuser --settings=mail_sender.local_settings```.
+  11. Open your browser and go to 0.0.0.0:8000/admin.
+  12. Login with your login credentials and enjoy the application.
+
 ## 👥 Contributors <a name="Contributors"></a>
 
 ### Group 46
