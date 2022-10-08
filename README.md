@@ -62,6 +62,7 @@
   <li>Sending Email</li>
   <li>Email Scheduling</li>
   <li>Send Recurring Email</li>
+  <li>Check Email Logs</li>
 </ul>
 
 <h1>Installation Guide</h1>
