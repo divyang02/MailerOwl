@@ -1,7 +1,6 @@
 name: Formatting python code
 on:
   push:
-    branches: [main]
     paths:
     - '**.py'
 jobs:
@@ -24,6 +23,6 @@ jobs:
         run: |
           git config --global user.name 'divyang02' 
           git config --global user.email 'divyangdoshi02@gmail.com' 
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ divyang02/MailerOwl }}
           git commit -am "Automated autoyapf fixes"
           git push
