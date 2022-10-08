@@ -3,7 +3,7 @@
 </h1>
 
 <!--Badges-->
-<div style="text-align: center;">
+<div align="center">
 
 [![CircleCI](https://circleci.com/gh/divyang02/MailerOwl.svg?style=svg)](https://circleci.com/gh/divyang02/MailerOwl)
 [![codecov](https://codecov.io/gh/divyang02/MailerOwl/branch/main/graph/badge.svg?token=O8AVQ0MZLR)](https://codecov.io/gh/divyang02/MailerOwl)
