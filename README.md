@@ -4,8 +4,6 @@
   [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
 </h1>
 
-<p>MailerOwl provides user functionality to schedule, send instant or recurring emails. User can also check the status of the emails from admin panel. Through our application, a user can schedule recurring emails to be sent over a particular duration that can be decided by the user. This product can be used by marketing teams to advertise their products and promotions to daily customers over a regular period of time.</p>
-
 <!--Badges-->
 <div align="center">
 
@@ -55,6 +53,8 @@
     ·
     <a href="https://github.com/divyang02/MailerOwl/issues/new/choose">Request Feature</a>
 </p>
+
+<p>MailerOwl provides user functionality to schedule, send instant or recurring emails. User can also check the status of the emails from admin panel. Through our application, a user can schedule recurring emails to be sent over a particular duration that can be decided by the user. This product can be used by marketing teams to advertise their products and promotions to daily customers over a regular period of time.</p>
 
 <h1>Features</h1>
 
