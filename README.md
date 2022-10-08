@@ -10,6 +10,7 @@
 [![CircleCI](https://circleci.com/gh/divyang02/MailerOwl.svg?style=svg)](https://circleci.com/gh/divyang02/MailerOwl)
 [![codecov](https://codecov.io/gh/divyang02/MailerOwl/branch/main/graph/badge.svg?token=O8AVQ0MZLR)](https://codecov.io/gh/divyang02/MailerOwl)
 [![Python Style Checker](https://github.com/divyang02/MailerOwl/actions/workflows/style_checker.yml/badge.svg)](https://github.com/divyang02/MailerOwl/actions/workflows/style_checker.yml)
+[![Formatting python code](https://github.com/divyang02/MailerOwl/actions/workflows/code_formatter.yml/badge.svg)](https://github.com/divyang02/MailerOwl/actions/workflows/code_formatter.yml)
 
 </div>
 
