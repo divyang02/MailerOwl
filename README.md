@@ -69,6 +69,7 @@
 
 <h1>🚀 Demo</h1>
 
+[![MailerOwl](./imgs/MailerOwl.png)](https://drive.google.com/file/d/1vOaGBalh4bywG6Z7xsxV-j8jBsnjytqO/view?usp=sharing)
 
 
 <h1>📖 Documentation</h1>
