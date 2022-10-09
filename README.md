@@ -65,6 +65,9 @@
   <li>Check Email Logs</li>
 </ul>
 
+<h1>Documentation</h1>
+The detailed documentation for the code can be found at - <a href="https://divyang02.github.io/MailerOwl/">MailerOwl Docs</a>
+
 <h1>Installation Guide</h1>
 
   1. Install <a href="https://www.docker.com/">Docker</a> on your operating system.
