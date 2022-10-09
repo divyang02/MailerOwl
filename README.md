@@ -76,7 +76,7 @@
   3. Create your account on <a href="https://www.mailjet.com/">MailJet</a> and generate an API Key and API Secret Token.
   4. Copy the content of mail_sender.settings.py and make a new file local_settings.py in the same folder.
   5. Update MAILJET_API_KEY and MAILJET_API_SECRET fields in the local_settings.py.
-  6. Update 
+  6. In local_settings.py update NAME, PASSWORD and USER fields as per your database config as written in docker-compose file in DATABASES dictionary
   7. Go to apps/email_scheduler/constants.py and update DEFAULT_FROM_EMAIL.
   8. Run ```docker compose up``` in a new terminal.
   9. Open another terminal and run the command ```docker exec -it mail_sender sh ```.
