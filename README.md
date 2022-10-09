@@ -93,6 +93,12 @@ The detailed documentation for the code can be found at - <a href="https://divya
   11. Open your browser and go to 0.0.0.0:8000/admin.
   12. Login with your login credentials and enjoy the application.
 
+<h1> Who can use our app</h1>
+
+  1. If you are a user who is visiting our app, you can sign up as a user with view access to emails and email campaigns. You cannot edit or create your own email for security purposes.
+  2. If you are an admin user, you can create, view, update and delete email and schedule email.
+  3. To request for admin privileges, please email on mailerowl@proton.me with the purpose of use. 
+
 <h1>TroubleShooting and Help Guide</h1>
 
  1. For any issues faced while using the application, please email the detailed description and steps to reproduce the error at mailerowl@proton.me .
