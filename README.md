@@ -1,11 +1,16 @@
 <h1 align="center">
   MailerOwl - All in one Email Marketing Solution 
-  
+
   [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7172676.svg)](https://doi.org/10.5281/zenodo.7172676)
 
 </h1>
 
+<h2 align="center">
+
+  [Link to Deployed Application](http://152.7.177.31:8000/)
+
+</h2>
 <!--Badges-->
 <div align="center">
 
@@ -67,7 +72,7 @@
   <li>Check Email Logs</li>
 </ul>
 
-<h1>🚀 Demo</h1>
+<h1>🚀 Video + Demo</h1>
 
 [![MailerOwl](./imgs/MailerOwl.png)](https://drive.google.com/file/d/1vOaGBalh4bywG6Z7xsxV-j8jBsnjytqO/view?usp=sharing)
 
