@@ -56,7 +56,7 @@
 
 <p>MailerOwl provides user functionality to schedule, send instant or recurring emails. User can also check the status of the emails from admin panel. Through our application, a user can schedule recurring emails to be sent over a particular duration that can be decided by the user. This product can be used by marketing teams to advertise their products and promotions to daily customers over a regular period of time.</p>
 
-<h1>Features</h1>
+<h1>🏆 Features</h1>
 
 <ul>
   <li>Sending Email</li>
@@ -65,10 +65,14 @@
   <li>Check Email Logs</li>
 </ul>
 
-<h1>Documentation</h1>
+<h1>🚀 Demo</h1>
+
+
+
+<h1>📖 Documentation</h1>
 The detailed documentation for the code can be found at - <a href="https://divyang02.github.io/MailerOwl/">MailerOwl Docs</a>
 
-<h1>Installation Guide</h1>
+<h1>🛠  Installation Guide</h1>
 
   1. Install <a href="https://www.docker.com/">Docker</a> on your operating system.
   2. Clone the github repository at a preferable location in your system.
@@ -87,7 +91,28 @@ The detailed documentation for the code can be found at - <a href="https://divya
   11. Open your browser and go to 0.0.0.0:8000/admin.
   12. Login with your login credentials and enjoy the application.
 
-## 👥 Contributors <a name="Contributors"></a>
+<h1>🎯 Plan of Action</h1>
+
+<h2>Phase 1</h2>
+
+1. Implement user registration and login functionality.
+2. UI for user login and registration.
+2. Implement simple email sending feature using Mailjet API.
+3. Add feature to allow users to schedule emails.
+4. Add recurring email functionality.
+5. Include application logging to monitor status of the emails.
+5. Dockerize the application
+6. Deploying applicatin on server
+
+<h1>🍰 Contributing</h1>
+
+Please contribute using [GitHub Flow](https://guides.github.com/introduction/flow). Create a branch, add commits, and [open a pull request](https://github.com/divyang02/MailerOwl/pulls).
+
+Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDUCT`](CODE_OF_CONDUCT.md), and the process for submitting pull requests to us.
+
+
+
+<h1> 👥 Contributors <a name="Contributors"></a> </h1>
 
 ### Group 46
 
