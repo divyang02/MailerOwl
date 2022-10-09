@@ -52,8 +52,7 @@ E-mails to our support e-mail address are received by more than one person | 3 |
 Project have a ticketing system to manage bug reports and feature requests | 3 | https://github.com/divyang02/MailerOwl/issues | 
 Project's ticketing system publicly visible to your users, so they can view bug reports and feature requests | 3 | https://github.com/divyang02/MailerOwl/issues | 
 Software’s architecture and design is modular | 3 | https://github.com/divyang02/MailerOwl | 
-"Software uses an accepted coding standard or convention | 3 | https://github.com/divyang02/MailerOwl/blob/main/CODE_OF_CONDUCT.md
-https://github.com/divyang02/MailerOwl/blob/main/CONTRIBUTING.md | "
+Software uses an accepted coding standard or convention | 3 | https://github.com/divyang02/MailerOwl/blob/main/CODE_OF_CONDUCT.md https://github.com/divyang02/MailerOwl/blob/main/CONTRIBUTING.md | 
 Software allows data to be imported and exported using open data formats | 3 | Data is stored in PostgreSQL database and can be retrieved using command line | 
 Software allows communications using open communications protocols | 3 | Communication is done with MailJet using REST | 
 Software cross-platform compatible | 3 | https://github.com/divyang02/MailerOwl/blob/main/docker-compose.yml | 
