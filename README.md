@@ -93,6 +93,12 @@ The detailed documentation for the code can be found at - <a href="https://divya
   11. Open your browser and go to 0.0.0.0:8000/admin.
   12. Login with your login credentials and enjoy the application.
 
+<h1>TroubleShooting and Help Guide</h1>
+
+ 1. For any issues faced while using the application, please email the detailed description and steps to reproduce the error at mailerowl@proton.me .
+ 2. If you are a developer, please raise an issue on github with steps to reproduce and possible source of error.
+ 3. Our email is monitored 24x7 and we usually respond within 1 hour. Happy Emailing :).
+
 <h1>🎯 Plan of Action</h1>
 
 <h2>Phase 1</h2>
