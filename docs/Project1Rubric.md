@@ -8,9 +8,9 @@ Issues are being closed | 3 | https://github.com/divyang02/MailerOwl/issues?q=is
 DOI badge: exists | 3 | https://github.com/divyang02/MailerOwl/blob/main/CITATION.md | 
 Docs: doco generated, format not ugly | 3 | https://divyang02.github.io/MailerOwl/ | 
 Docs: what: point descriptions of each class/function (in isolation) | 3 | https://divyang02.github.io/MailerOwl/ | 
-Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z |  |  | 
-Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing |  |  | 
-Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code. |  |  | 
+Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
+Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
+Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code. | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
 Use of version control tools | 3 | https://github.com/divyang02/MailerOwl | 
 Use of style checkers | 3 | https://github.com/divyang02/MailerOwl/blob/main/.github/workflows/style_checker.yml | 
 Use of code formatters. | 3 | https://github.com/divyang02/MailerOwl/blob/main/.github/workflows/code_formatter.yml | 
@@ -29,8 +29,8 @@ Evidence that the whole team is using the same tools (e.g. tutor can ask anyone 
 Evidence that the members of the team are working across multiple places in the code base | 3 | https://github.com/divyang02/MailerOwl/commits/main | 
 Short release cycles | 3 | https://github.com/divyang02/MailerOwl/releases | 
 Website and documentation provides clear high-level overview of software | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
-Website and documentation clearly describe the type of user who should use your software |  |  | 
-Case studies to show how software has been used |  |  | 
+Website and documentation clearly describe the type of user who should use your software | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
+Case studies to show how software has been used | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
 Unique project/software name | 3 | MailerOwl | 
 Project/software name free from trademark violations | 3 |  | 
 Software available as a package that can be deployed without building it | 3 | https://github.com/divyang02/MailerOwl/blob/main/docker-compose.yml | 
@@ -52,7 +52,7 @@ E-mails to our support e-mail address are received by more than one person | 3 |
 Project have a ticketing system to manage bug reports and feature requests | 3 | https://github.com/divyang02/MailerOwl/issues | 
 Project's ticketing system publicly visible to your users, so they can view bug reports and feature requests | 3 | https://github.com/divyang02/MailerOwl/issues | 
 Software’s architecture and design is modular | 3 | https://github.com/divyang02/MailerOwl | 
-Software uses an accepted coding standard or convention | 3 | https://github.com/divyang02/MailerOwl/blob/main/CODE_OF_CONDUCT.md https://github.com/divyang02/MailerOwl/blob/main/CONTRIBUTING.md | 
+Software uses an accepted coding standard or convention | 3 | https://github.com/divyang02/MailerOwl/blob/main/CODE_OF_CONDUCT.md and https://github.com/divyang02/MailerOwl/blob/main/CONTRIBUTING.md |
 Software allows data to be imported and exported using open data formats | 3 | Data is stored in PostgreSQL database and can be retrieved using command line | 
 Software allows communications using open communications protocols | 3 | Communication is done with MailJet using REST | 
 Software cross-platform compatible | 3 | https://github.com/divyang02/MailerOwl/blob/main/docker-compose.yml | 
@@ -96,4 +96,4 @@ Source code files include a licence header |  |  |
 Recommended citation for your software | 3 | https://github.com/divyang02/MailerOwl/blob/main/CITATION.md | 
 Documentation includes a project roadmap (a list of project and development milestones for the next 3, 6 months) | 3 | https://github.com/divyang02/MailerOwl/blob/main/README.md | 
 Documentation describe how the project is funded, and the period over which funding is guaranteed? | 3 | Personal funds | 
-Do you make timely announcements of the deprecation of components, APIs, etc. | 3 |  | 
+Do you make timely announcements of the deprecation of components, APIs, etc. | 3 |  | ![image](https://user-images.githubusercontent.com/32238511/194796670-4e179fdb-3686-4508-a945-79654cc80c05.png)
